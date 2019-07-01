@@ -1,6 +1,6 @@
 ﻿namespace NavitasProject
 {
-    partial class Form1
+    partial class Res
     {
         /// <summary>
         /// Required designer variable.
@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.BaseMap = new System.Windows.Forms.PictureBox();
             this.ClearAll = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,16 +47,13 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.cubicleButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.AccessPanelSeparator1 = new System.Windows.Forms.Panel();
             this.ArrowKeys = new System.Windows.Forms.FlowLayoutPanel();
-            this.CancelButton = new System.Windows.Forms.Button();
-            this.SaveButton = new System.Windows.Forms.Button();
-            this.ResetButton = new System.Windows.Forms.Button();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.TitleAccessPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.FlowAccessPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.UPArrow = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
@@ -65,19 +63,21 @@
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.DownArrow = new System.Windows.Forms.PictureBox();
             this.pictureBox10 = new System.Windows.Forms.PictureBox();
-            this.cubicleButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.CancButton = new System.Windows.Forms.Button();
+            this.SaveButton = new System.Windows.Forms.Button();
+            this.ResetButton = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.TitleAccessPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.FlowAccessPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.ResourcesBay = new System.Windows.Forms.FlowLayoutPanel();
+            this.Resource_Bay = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BaseMap)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.AccessPanelSeparator1.SuspendLayout();
             this.ArrowKeys.SuspendLayout();
-            this.TitleAccessPanel.SuspendLayout();
-            this.FlowAccessPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UPArrow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -87,7 +87,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DownArrow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.TitleAccessPanel.SuspendLayout();
+            this.FlowAccessPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -95,11 +96,19 @@
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Controls.Add(this.BaseMap);
             this.panel1.Location = new System.Drawing.Point(12, 31);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(973, 658);
             this.panel1.TabIndex = 2;
+            // 
+            // BaseMap
+            // 
+            this.BaseMap.Location = new System.Drawing.Point(3, 3);
+            this.BaseMap.Name = "BaseMap";
+            this.BaseMap.Size = new System.Drawing.Size(2021, 1270);
+            this.BaseMap.TabIndex = 0;
+            this.BaseMap.TabStop = false;
             // 
             // ClearAll
             // 
@@ -144,14 +153,14 @@
             this.newToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.browseToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.newToolStripMenuItem.Text = "New";
             // 
             // browseToolStripMenuItem
             // 
             this.browseToolStripMenuItem.Name = "browseToolStripMenuItem";
-            this.browseToolStripMenuItem.Size = new System.Drawing.Size(132, 26);
-            this.browseToolStripMenuItem.Text = "Browse";
+            this.browseToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.browseToolStripMenuItem.Text = "Add Map";
             this.browseToolStripMenuItem.Click += new System.EventHandler(this.browseToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
@@ -225,6 +234,57 @@
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // cubicleButton
+            // 
+            this.cubicleButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.cubicleButton.Image = global::NavitasProject.Properties.Resources.cubicle;
+            this.cubicleButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.cubicleButton.Name = "cubicleButton";
+            this.cubicleButton.Size = new System.Drawing.Size(54, 54);
+            this.cubicleButton.Text = "toolStripButton5";
+            this.cubicleButton.Click += new System.EventHandler(this.toolStripButton5_Click);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = global::NavitasProject.Properties.Resources.computer;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(54, 54);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = global::NavitasProject.Properties.Resources._5572;
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(54, 54);
+            this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton3.Image = global::NavitasProject.Properties.Resources.mobile;
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(54, 54);
+            this.toolStripButton3.Text = "toolStripButton3";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton4.Image = global::NavitasProject.Properties.Resources.keyboard;
+            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Size = new System.Drawing.Size(54, 54);
+            this.toolStripButton4.Text = "toolStripButton4";
+            this.toolStripButton4.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
+            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
+            // 
             // AccessPanelSeparator1
             // 
             this.AccessPanelSeparator1.Controls.Add(this.ArrowKeys);
@@ -249,16 +309,108 @@
             this.ArrowKeys.Size = new System.Drawing.Size(170, 170);
             this.ArrowKeys.TabIndex = 5;
             // 
-            // CancelButton
+            // pictureBox2
             // 
-            this.CancelButton.Location = new System.Drawing.Point(245, 592);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(100, 44);
-            this.CancelButton.TabIndex = 3;
-            this.CancelButton.Text = "CANCEL";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Visible = false;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.pictureBox2.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(50, 50);
+            this.pictureBox2.TabIndex = 0;
+            this.pictureBox2.TabStop = false;
+            // 
+            // UPArrow
+            // 
+            this.UPArrow.Image = global::NavitasProject.Properties.Resources.iconfinder_arrow_up_circle_3313574__2_;
+            this.UPArrow.Location = new System.Drawing.Point(59, 3);
+            this.UPArrow.Name = "UPArrow";
+            this.UPArrow.Size = new System.Drawing.Size(50, 50);
+            this.UPArrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.UPArrow.TabIndex = 1;
+            this.UPArrow.TabStop = false;
+            this.UPArrow.Visible = false;
+            this.UPArrow.Click += new System.EventHandler(this.UPArrow_Click);
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Location = new System.Drawing.Point(115, 3);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(50, 50);
+            this.pictureBox4.TabIndex = 2;
+            this.pictureBox4.TabStop = false;
+            // 
+            // LeftArrow
+            // 
+            this.LeftArrow.Image = global::NavitasProject.Properties.Resources.iconfinder_arrow_leftcircle_3313574___Copy;
+            this.LeftArrow.Location = new System.Drawing.Point(3, 59);
+            this.LeftArrow.Name = "LeftArrow";
+            this.LeftArrow.Size = new System.Drawing.Size(50, 50);
+            this.LeftArrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.LeftArrow.TabIndex = 3;
+            this.LeftArrow.TabStop = false;
+            this.LeftArrow.Visible = false;
+            this.LeftArrow.Click += new System.EventHandler(this.LeftArrow_Click);
+            // 
+            // resetSize
+            // 
+            this.resetSize.Image = global::NavitasProject.Properties.Resources.iconfinder_sort_3017920;
+            this.resetSize.Location = new System.Drawing.Point(59, 59);
+            this.resetSize.Name = "resetSize";
+            this.resetSize.Size = new System.Drawing.Size(50, 50);
+            this.resetSize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.resetSize.TabIndex = 4;
+            this.resetSize.TabStop = false;
+            this.resetSize.Visible = false;
+            this.resetSize.Click += new System.EventHandler(this.resetSize_Click);
+            // 
+            // RightArrow
+            // 
+            this.RightArrow.Image = global::NavitasProject.Properties.Resources.iconfinder_arrow_right_circle_3313574___Copy__2_;
+            this.RightArrow.Location = new System.Drawing.Point(115, 59);
+            this.RightArrow.Name = "RightArrow";
+            this.RightArrow.Size = new System.Drawing.Size(50, 50);
+            this.RightArrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RightArrow.TabIndex = 5;
+            this.RightArrow.TabStop = false;
+            this.RightArrow.Visible = false;
+            this.RightArrow.Click += new System.EventHandler(this.RightArrow_Click);
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Location = new System.Drawing.Point(3, 115);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(50, 50);
+            this.pictureBox8.TabIndex = 6;
+            this.pictureBox8.TabStop = false;
+            // 
+            // DownArrow
+            // 
+            this.DownArrow.Image = global::NavitasProject.Properties.Resources.iconfinder_arrow_own_circle_3313574;
+            this.DownArrow.Location = new System.Drawing.Point(59, 115);
+            this.DownArrow.Name = "DownArrow";
+            this.DownArrow.Size = new System.Drawing.Size(50, 50);
+            this.DownArrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.DownArrow.TabIndex = 7;
+            this.DownArrow.TabStop = false;
+            this.DownArrow.Visible = false;
+            this.DownArrow.Click += new System.EventHandler(this.DownArrow_Click);
+            // 
+            // pictureBox10
+            // 
+            this.pictureBox10.Location = new System.Drawing.Point(115, 115);
+            this.pictureBox10.Name = "pictureBox10";
+            this.pictureBox10.Size = new System.Drawing.Size(50, 50);
+            this.pictureBox10.TabIndex = 8;
+            this.pictureBox10.TabStop = false;
+            // 
+            // CancButton
+            // 
+            this.CancButton.Location = new System.Drawing.Point(245, 592);
+            this.CancButton.Name = "CancButton";
+            this.CancButton.Size = new System.Drawing.Size(100, 44);
+            this.CancButton.TabIndex = 3;
+            this.CancButton.Text = "CANCEL";
+            this.CancButton.UseVisualStyleBackColor = true;
+            this.CancButton.Visible = false;
+            this.CancButton.Click += new System.EventHandler(this.CancButton_Click);
             // 
             // SaveButton
             // 
@@ -341,193 +493,55 @@
             this.FlowAccessPanel.Controls.Add(this.AccessPanelSeparator1);
             this.FlowAccessPanel.Controls.Add(this.ResetButton);
             this.FlowAccessPanel.Controls.Add(this.SaveButton);
-            this.FlowAccessPanel.Controls.Add(this.CancelButton);
+            this.FlowAccessPanel.Controls.Add(this.CancButton);
             this.FlowAccessPanel.Controls.Add(this.toolStrip1);
             this.FlowAccessPanel.Location = new System.Drawing.Point(1238, 31);
             this.FlowAccessPanel.Name = "FlowAccessPanel";
-            this.FlowAccessPanel.Size = new System.Drawing.Size(349, 765);
+            this.FlowAccessPanel.Size = new System.Drawing.Size(349, 887);
             this.FlowAccessPanel.TabIndex = 2;
             // 
-            // button1
+            // ResourcesBay
             // 
-            this.button1.Location = new System.Drawing.Point(1061, 244);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(22, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.ResourcesBay.AllowDrop = true;
+            this.ResourcesBay.BackColor = System.Drawing.SystemColors.Window;
+            this.ResourcesBay.Location = new System.Drawing.Point(991, 36);
+            this.ResourcesBay.Name = "ResourcesBay";
+            this.ResourcesBay.Size = new System.Drawing.Size(241, 653);
+            this.ResourcesBay.TabIndex = 4;
             // 
-            // pictureBox2
+            // Resource_Bay
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox2.TabIndex = 0;
-            this.pictureBox2.TabStop = false;
+            this.Resource_Bay.AutoSize = true;
+            this.Resource_Bay.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.Resource_Bay.Location = new System.Drawing.Point(991, 16);
+            this.Resource_Bay.Name = "Resource_Bay";
+            this.Resource_Bay.Size = new System.Drawing.Size(101, 17);
+            this.Resource_Bay.TabIndex = 5;
+            this.Resource_Bay.Text = "Resource_Bay";
             // 
-            // UPArrow
-            // 
-            this.UPArrow.Image = global::NavitasProject.Properties.Resources.iconfinder_arrow_up_circle_3313574__2_;
-            this.UPArrow.Location = new System.Drawing.Point(59, 3);
-            this.UPArrow.Name = "UPArrow";
-            this.UPArrow.Size = new System.Drawing.Size(50, 50);
-            this.UPArrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.UPArrow.TabIndex = 1;
-            this.UPArrow.TabStop = false;
-            this.UPArrow.Visible = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Location = new System.Drawing.Point(115, 3);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox4.TabIndex = 2;
-            this.pictureBox4.TabStop = false;
-            // 
-            // LeftArrow
-            // 
-            this.LeftArrow.Image = global::NavitasProject.Properties.Resources.iconfinder_arrow_leftcircle_3313574___Copy;
-            this.LeftArrow.Location = new System.Drawing.Point(3, 59);
-            this.LeftArrow.Name = "LeftArrow";
-            this.LeftArrow.Size = new System.Drawing.Size(50, 50);
-            this.LeftArrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.LeftArrow.TabIndex = 3;
-            this.LeftArrow.TabStop = false;
-            this.LeftArrow.Visible = false;
-            // 
-            // resetSize
-            // 
-            this.resetSize.Image = global::NavitasProject.Properties.Resources.iconfinder_sort_3017920;
-            this.resetSize.Location = new System.Drawing.Point(59, 59);
-            this.resetSize.Name = "resetSize";
-            this.resetSize.Size = new System.Drawing.Size(50, 50);
-            this.resetSize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.resetSize.TabIndex = 4;
-            this.resetSize.TabStop = false;
-            this.resetSize.Visible = false;
-            // 
-            // RightArrow
-            // 
-            this.RightArrow.Image = global::NavitasProject.Properties.Resources.iconfinder_arrow_right_circle_3313574___Copy__2_;
-            this.RightArrow.Location = new System.Drawing.Point(115, 59);
-            this.RightArrow.Name = "RightArrow";
-            this.RightArrow.Size = new System.Drawing.Size(50, 50);
-            this.RightArrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.RightArrow.TabIndex = 5;
-            this.RightArrow.TabStop = false;
-            this.RightArrow.Visible = false;
-            // 
-            // pictureBox8
-            // 
-            this.pictureBox8.Location = new System.Drawing.Point(3, 115);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox8.TabIndex = 6;
-            this.pictureBox8.TabStop = false;
-            // 
-            // DownArrow
-            // 
-            this.DownArrow.Image = global::NavitasProject.Properties.Resources.iconfinder_arrow_own_circle_3313574;
-            this.DownArrow.Location = new System.Drawing.Point(59, 115);
-            this.DownArrow.Name = "DownArrow";
-            this.DownArrow.Size = new System.Drawing.Size(50, 50);
-            this.DownArrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.DownArrow.TabIndex = 7;
-            this.DownArrow.TabStop = false;
-            this.DownArrow.Visible = false;
-            // 
-            // pictureBox10
-            // 
-            this.pictureBox10.Location = new System.Drawing.Point(115, 115);
-            this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox10.TabIndex = 8;
-            this.pictureBox10.TabStop = false;
-            // 
-            // cubicleButton
-            // 
-            this.cubicleButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.cubicleButton.Image = global::NavitasProject.Properties.Resources.cubicle;
-            this.cubicleButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.cubicleButton.Name = "cubicleButton";
-            this.cubicleButton.Size = new System.Drawing.Size(54, 54);
-            this.cubicleButton.Text = "toolStripButton5";
-            this.cubicleButton.Click += new System.EventHandler(this.toolStripButton5_Click);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::NavitasProject.Properties.Resources.computer;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(54, 54);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = global::NavitasProject.Properties.Resources._5572;
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(54, 54);
-            this.toolStripButton2.Text = "toolStripButton2";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
-            // 
-            // toolStripButton3
-            // 
-            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton3.Image = global::NavitasProject.Properties.Resources.mobile;
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(54, 54);
-            this.toolStripButton3.Text = "toolStripButton3";
-            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
-            // 
-            // toolStripButton4
-            // 
-            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton4.Image = global::NavitasProject.Properties.Resources.keyboard;
-            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(54, 54);
-            this.toolStripButton4.Text = "toolStripButton4";
-            this.toolStripButton4.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(2021, 1270);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
-            // Form1
+            // Res
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1587, 917);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.Resource_Bay);
+            this.Controls.Add(this.ResourcesBay);
             this.Controls.Add(this.FlowAccessPanel);
             this.Controls.Add(this.ClearAll);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "Res";
             this.Text = "Resource Lot";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.BaseMap)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.AccessPanelSeparator1.ResumeLayout(false);
             this.ArrowKeys.ResumeLayout(false);
-            this.TitleAccessPanel.ResumeLayout(false);
-            this.TitleAccessPanel.PerformLayout();
-            this.FlowAccessPanel.ResumeLayout(false);
-            this.FlowAccessPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.UPArrow)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
@@ -537,7 +551,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DownArrow)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.TitleAccessPanel.ResumeLayout(false);
+            this.TitleAccessPanel.PerformLayout();
+            this.FlowAccessPanel.ResumeLayout(false);
+            this.FlowAccessPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -558,7 +575,7 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem browseToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox BaseMap;
         private System.Windows.Forms.Button ClearAll;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStrip toolStrip1;
@@ -568,14 +585,13 @@
         private System.Windows.Forms.ToolStripButton toolStripButton3;
         private System.Windows.Forms.ToolStripButton toolStripButton4;
         private System.Windows.Forms.Panel AccessPanelSeparator1;
-        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button CancButton;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button ResetButton;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel TitleAccessPanel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.FlowLayoutPanel FlowAccessPanel;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.FlowLayoutPanel ArrowKeys;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox UPArrow;
@@ -586,6 +602,8 @@
         private System.Windows.Forms.PictureBox pictureBox8;
         private System.Windows.Forms.PictureBox DownArrow;
         private System.Windows.Forms.PictureBox pictureBox10;
+        private System.Windows.Forms.FlowLayoutPanel ResourcesBay;
+        private System.Windows.Forms.Label Resource_Bay;
     }
 }
 

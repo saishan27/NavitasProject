@@ -2,9 +2,9 @@ C:\Users\SaiShan\source\repos\NavitasProject\NavitasProject\bin\Debug\NavitasPro
 C:\Users\SaiShan\source\repos\NavitasProject\NavitasProject\bin\Debug\NavitasProject.exe
 C:\Users\SaiShan\source\repos\NavitasProject\NavitasProject\bin\Debug\NavitasProject.pdb
 C:\Users\SaiShan\source\repos\NavitasProject\NavitasProject\obj\Debug\NavitasProject.csprojAssemblyReference.cache
-C:\Users\SaiShan\source\repos\NavitasProject\NavitasProject\obj\Debug\NavitasProject.Form1.resources
 C:\Users\SaiShan\source\repos\NavitasProject\NavitasProject\obj\Debug\NavitasProject.Properties.Resources.resources
 C:\Users\SaiShan\source\repos\NavitasProject\NavitasProject\obj\Debug\NavitasProject.csproj.GenerateResource.cache
 C:\Users\SaiShan\source\repos\NavitasProject\NavitasProject\obj\Debug\NavitasProject.csproj.CoreCompileInputs.cache
 C:\Users\SaiShan\source\repos\NavitasProject\NavitasProject\obj\Debug\NavitasProject.exe
 C:\Users\SaiShan\source\repos\NavitasProject\NavitasProject\obj\Debug\NavitasProject.pdb
+C:\Users\SaiShan\source\repos\NavitasProject\NavitasProject\obj\Debug\NavitasProject.Res.resources
