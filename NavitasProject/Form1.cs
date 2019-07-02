@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,20 +24,23 @@ namespace NavitasProject
 
 
         int J = -1; // Array Pointer which points the value of resPic Array tag
-        int j = 0;
+        int j = 0; //Resource Picturebox Array Index
         int q = 0; // Cubicle Picturebox Array Index 
         int Q = -1; // Cubicle dragdrop TAG;
         int S = -1; // Cubicle Resize 
+        int P = -1; //Resource Resize
         ResourcePictureBox[] resPic = new ResourcePictureBox[50];
 
         CustomPictureBox[] cubPic = new CustomPictureBox[50];
         //Textbox to set custom properties to cubicle pixturebox
         TextBox C_Name, CubNo, EmpName, EmpSno, C_State, Other;
+        TextBox OtherInfo, ResState,  AssCubNo, AssEmpNo, ResNo, ResType;
+        TextBox DateOfIssue;
         //Labels for cubicle;
-        Label[] l = new Label[6];
+        Label[] l = new Label[7];
         //Edit menu selection
         Boolean IsCubicleOnEdit = false;
-
+        Boolean IsResourceOnEdit = false;
 
         public Res()
         {
@@ -72,6 +76,112 @@ namespace NavitasProject
             }
 
         }
+        private  void createRes(string ResourceNo,string ResourceType,string AssignedEmpNo,string DateOfIssue,string AssignedCubNo,string ResourceState,string OtherInformation)
+        {
+
+            //Mobile Resource creator 
+            resPic[j] = new ResourcePictureBox();
+            resPic[j].Size = new Size(30, 30);  //I use this picturebox simply to debug and see if I can create a single picturebox, and that way I can tell if something goes wrong with my array of pictureboxes. Thus far however, neither are working.
+
+            if (ResourceType == "computer")
+            {
+                resPic[j].Image = Properties.Resources.computer;
+            }else if(ResourceType == "mobile")
+            {
+                resPic[j].Image = Properties.Resources.mobile;
+            }else if(ResourceType == "keyboard")
+            {
+                resPic[j].Image = Properties.Resources.keyboard;
+            }else if(ResourceType == "printer")
+            {
+                resPic[j].Image = Properties.Resources._5572;
+            }
+
+            resPic[j].DateOfIssue = DateOfIssue;
+            resPic[j].AssCubNo = AssignedCubNo;
+            resPic[j].AssEmpNo = AssignedEmpNo;
+            resPic[j].ResNo = ResourceNo;
+            resPic[j].ResType = ResourceType;
+            resPic[j].ResState = ResourceState;
+            resPic[j].OtherInfo = OtherInformation;
+            
+
+            resPic[j].SizeMode = PictureBoxSizeMode.StretchImage;
+            resPic[j].BackColor = Color.Transparent;
+            //resPic[j].BackgroundImage = Properties.Resources.computer;
+            resPic[j].BackgroundImageLayout = ImageLayout.Stretch;
+            resPic[j].Location = new Point(0, 0);
+
+            resPic[j].MouseDown += new MouseEventHandler(resPic_MouseDown);
+
+            resPic[j].MouseUp += new MouseEventHandler(resPic_MouseUp);
+
+            resPic[j].MouseMove += new MouseEventHandler(resPic_MouseMove);
+
+            resPic[j].MouseHover += new EventHandler(resPic_MouseHover);
+
+            resPic[j].Tag = j;
+
+            resPic[j].LocationChanged += new EventHandler(resPic_LC);
+            //pb.Anchor = AnchorStyles.Left;
+
+            resPic[j].Visible = true;
+            //pictureBox1.Controls.Add(resPic[j]);
+            ResourcesBay.Controls.Add(resPic[j]);
+            j++;
+        }
+
+        private void addResourceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            String csvLocation = "";
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "CSV files(*.csv)|*.csv";
+                if(dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    csvLocation = dialog.FileName;
+                    string[] Lines = File.ReadAllLines(csvLocation);
+                    string[] Fields;
+                    Fields = Lines[0].Split(new char[] { ',' });
+                    int Cols = Fields.GetLength(0);
+                    DataTable dt = new DataTable();
+
+                    //1st row must be column names; force lower case to ensure matching later on.
+                    for(int i = 0; i < Cols; i++)
+                    {
+                        dt.Columns.Add(Fields[i].ToLower(), typeof(string));
+                        
+                    }
+                    DataRow Row;
+
+                    for (int i = 1; i < Lines.GetLength(0); i++)
+                    {
+                        Fields = Lines[i].Split(new char[] { ',' });
+                        Row = dt.NewRow();
+                        for (int f = 0; f < Cols; f++)
+                            Row[f] = Fields[f];
+                        dt.Rows.Add(Row);
+                    }
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        //string file = row.Field<string>(0);
+                        createRes(row.Field<string>(0), row.Field<string>(1), row.Field<string>(2), row.Field<string>(3), row.Field<string>(4), row.Field<string>(5), row.Field<string>(6));
+                        
+
+                    }
+                }
+
+
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("An Error Occured", "Error", MessageBoxButtons.OK);
+            }
+        }
+
 
 
         private void resPic_MouseDown(object sender, MouseEventArgs e)
@@ -181,6 +291,7 @@ namespace NavitasProject
 
             resPic[j].Tag = j;
 
+            resPic[j].LocationChanged += new EventHandler(resPic_LC);
             //pb.Anchor = AnchorStyles.Left;
 
             resPic[j].Visible = true;
@@ -212,6 +323,8 @@ namespace NavitasProject
 
             resPic[j].Tag = j;
 
+            resPic[j].LocationChanged += new EventHandler(resPic_LC);
+
             //pb.Anchor = AnchorStyles.Left;
 
             resPic[j].Visible = true;
@@ -241,6 +354,10 @@ namespace NavitasProject
             resPic[j].MouseHover += new EventHandler(resPic_MouseHover);
 
             resPic[j].Tag = j;
+
+           // resPic[j].MouseClick += new MouseEventHandler(resPic_MouseClick);
+            resPic[j].LocationChanged += new EventHandler(resPic_LC);
+
 
             //pb.Anchor = AnchorStyles.Left;
 
@@ -273,6 +390,9 @@ namespace NavitasProject
             resPic[j].MouseHover += new EventHandler(resPic_MouseHover);
 
             resPic[j].Tag = j;
+
+            
+            resPic[j].LocationChanged += new EventHandler(resPic_LC);
 
             //pb.Anchor = AnchorStyles.Left;
 
@@ -311,6 +431,7 @@ namespace NavitasProject
             cubPic[S].Size = temp;
         }
 
+      
         private void RightArrow_Click(object sender, EventArgs e)
         {
             //cubPic[Q].Size.Width += 1;
@@ -338,12 +459,65 @@ namespace NavitasProject
             temp.Height += 2;
             cubPic[S].Size = temp;
             */
+                }
+                private void resPic_LC(object sender, EventArgs e)
+        {
+            if (!IsResourceOnEdit && !IsCubicleOnEdit )
+            {
+                IsResourceOnEdit = true;
+                ResetButton.Visible = true;
+                SaveButton.Visible = true;
+                CancButton.Visible = true;
+
+                P = (int)(((PictureBox)sender).Tag);
+
+                
+
+
+                l[0] = new Label { Text = "ResNo:", Anchor = AnchorStyles.Left, Tag = "resLabels", AutoSize = true };
+                tableLayoutPanel1.Controls.Add(l[0], 0, 0);
+                ResNo = new TextBox { Dock = DockStyle.Fill, Text = resPic[P].ResNo };
+                tableLayoutPanel1.Controls.Add(ResNo, 1, 0);
+
+                
+
+                l[1] = new Label { Text = "Assigned Cubicle No:", Anchor = AnchorStyles.Left, Tag = "resLabels", AutoSize = true };
+                tableLayoutPanel1.Controls.Add(l[1], 0, 1);
+                AssCubNo = new TextBox { Dock = DockStyle.Fill, Text = resPic[P].AssCubNo };
+                tableLayoutPanel1.Controls.Add(AssCubNo, 1, 1);
+
+                l[2] = new Label { Text = "Assigned Emp Name:", Anchor = AnchorStyles.Left, Tag = "resLabels", AutoSize = true };
+                tableLayoutPanel1.Controls.Add(l[2], 0, 2);
+                AssEmpNo = new TextBox { AccessibleName = "EmpName", Dock = DockStyle.Fill, Text = resPic[P].AssEmpNo };
+                tableLayoutPanel1.Controls.Add(AssEmpNo, 1, 2);
+
+                l[3] = new Label { Text = "DOI:", Anchor = AnchorStyles.Left, Tag = "resLabels", AutoSize = true };
+                tableLayoutPanel1.Controls.Add(l[3], 0, 3);
+                DateOfIssue = new TextBox { Dock = DockStyle.Fill, Text = resPic[P].DateOfIssue };
+                tableLayoutPanel1.Controls.Add(DateOfIssue, 1, 3);
+
+                l[4] = new Label { Text = "Resource State :", Anchor = AnchorStyles.Left, Tag = "resLabels", AutoSize = true };
+                tableLayoutPanel1.Controls.Add(l[4], 0, 4);
+                ResState = new TextBox { AccessibleName = "ResState", Dock = DockStyle.Fill, Text = resPic[P].ResState };
+                tableLayoutPanel1.Controls.Add(ResState, 1, 4);
+
+                l[5] = new Label { Text = "Res Type:", Anchor = AnchorStyles.Left, Tag = "resLabels", AutoSize = true };
+                tableLayoutPanel1.Controls.Add(l[5], 0, 5);
+                ResType = new TextBox { AccessibleName = "OtherInfo", Dock = DockStyle.Fill, Text = resPic[P].ResType };
+                tableLayoutPanel1.Controls.Add(ResType, 1, 5);
+
+                l[6] = new Label { Text = "OtherInfo:", Anchor = AnchorStyles.Left, Tag = "resLabels", AutoSize = true };
+                tableLayoutPanel1.Controls.Add(l[6], 0, 6);
+                OtherInfo = new TextBox { AccessibleName = "OtherInfo", Dock = DockStyle.Fill, Text = resPic[P].OtherInfo };
+                tableLayoutPanel1.Controls.Add(OtherInfo, 1, 6);
+
+            }
         }
 
         private void cubPic_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             //Used to assign properties to the object created 
-            if (!IsCubicleOnEdit)
+            if (!IsCubicleOnEdit && !IsResourceOnEdit)
             {
                 IsCubicleOnEdit = true;
                 ResetButton.Visible = true;
@@ -408,7 +582,7 @@ namespace NavitasProject
 
 
 
-            cubPic[q] = new CustomPictureBox();
+                cubPic[q] = new CustomPictureBox();
             cubPic[q].Size = new Size(100, 100);  //I use this picturebox simply to debug and see if I can create a single picturebox, and that way I can tell if something goes wrong with my array of pictureboxes. Thus far however, neither are working.
             cubPic[q].Dock = DockStyle.Fill;
             cubPic[q].SizeMode = PictureBoxSizeMode.Normal;
@@ -423,7 +597,6 @@ namespace NavitasProject
             cubPic[q].MouseMove += new MouseEventHandler(cubPic_MouseMove);
             cubPic[q].MouseHover += new EventHandler(cubPic_MouseHover);
             cubPic[q].MouseDoubleClick += new MouseEventHandler(cubPic_MouseDoubleClick);
-
             cubPic[q].DragOver += new DragEventHandler(cubPic_DragOver);
             cubPic[q].DragDrop += new DragEventHandler(cubPic_DragDrop);
 
@@ -441,66 +614,114 @@ namespace NavitasProject
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            cubPic[S].EmpSno = EmpSno.Text;
-            cubPic[S].EmpName = EmpName.Text;
-            cubPic[S].CubNo = CubNo.Text;
-            cubPic[S].C_Name = C_Name.Text;
-            cubPic[S].C_State = C_State.Text;
-            cubPic[S].Other = Other.Text;
-            
-            MessageBox.Show("Saved");
+            if (IsCubicleOnEdit)
+            {
+                cubPic[S].EmpSno = EmpSno.Text;
+                cubPic[S].EmpName = EmpName.Text;
+                cubPic[S].CubNo = CubNo.Text;
+                cubPic[S].C_Name = C_Name.Text;
+                cubPic[S].C_State = C_State.Text;
+                cubPic[S].Other = Other.Text;
+
+                MessageBox.Show("Saved");
+            }else if (IsResourceOnEdit)
+            {
+                
+                resPic[P].AssEmpNo = AssEmpNo.Text;
+                resPic[P].AssCubNo = AssCubNo.Text;
+                resPic[P].ResNo = ResNo.Text;
+                resPic[P].ResType = ResType.Text;
+                resPic[P].ResState = ResState.Text;
+                resPic[P].DateOfIssue = DateOfIssue.Text;
+                resPic[P].OtherInfo = OtherInfo.Text;
+
+
+                MessageBox.Show("Saved");
+
+            }
         }
         private void ResetButton_Click(object sender, EventArgs e)
         {
-            C_Name.Text = "";
-            CubNo.Text = "";
-            EmpName.Text = "";
-            EmpSno.Text = "";
-            C_State.Text = "";
-            Other.Text = "";
+            if (IsCubicleOnEdit)
+            {
+                C_Name.Text = "";
+                CubNo.Text = "";
+                EmpName.Text = "";
+                EmpSno.Text = "";
+                C_State.Text = "";
+                Other.Text = "";
+            }else if (IsResourceOnEdit)
+            {
+                AssEmpNo.Text="";
+                AssCubNo.Text = "";
+                ResNo.Text = "";
+                ResType.Text = "";
+                ResState.Text = "";
+                DateOfIssue.Text = "";
+                OtherInfo.Text = "";
+            }
         }
 
         private void CancButton_Click(object sender, EventArgs e)
         {
-            ResetButton.Visible = false;
-            SaveButton.Visible = false;
-            CancButton.Visible = false;
-            IsCubicleOnEdit = false;
-
-
-            //ArrowKeys used to resize the cubicle 
-            UPArrow.Visible = false;
-            LeftArrow.Visible = false;
-            resetSize.Visible = false;
-            RightArrow.Visible = false;
-            DownArrow.Visible = false;
-
-            for (int i = 0; i < 6; i++)
+            if (IsCubicleOnEdit)
             {
-                l[i].Visible = false;
-                l[i].Dispose();
+                ResetButton.Visible = false;
+                SaveButton.Visible = false;
+                CancButton.Visible = false;
+                IsCubicleOnEdit = false;
+
+
+                //ArrowKeys used to resize the cubicle 
+                UPArrow.Visible = false;
+                LeftArrow.Visible = false;
+                resetSize.Visible = false;
+                RightArrow.Visible = false;
+                DownArrow.Visible = false;
+
+                for (int i = 0; i < 6; i++)
+                {
+                    l[i].Visible = false;
+                    l[i].Dispose();
+                }
+
+                C_Name.Dispose();
+                CubNo.Dispose();
+                EmpName.Dispose();
+                EmpSno.Dispose();
+                C_State.Dispose();
+                Other.Dispose();
+
+                S = -1;
+            }else if (IsResourceOnEdit)
+            {
+                IsResourceOnEdit = false;
+                ResetButton.Visible = false;
+                SaveButton.Visible = false;
+                CancButton.Visible = false;
+
+                for (int i = 0; i < 7; i++)
+                {
+                    l[i].Visible = false;
+                    l[i].Dispose();
+                }
+
+                AssEmpNo.Dispose();
+                AssCubNo.Dispose();
+                ResNo.Dispose();
+                ResType.Dispose();
+                ResState.Dispose();
+                DateOfIssue.Dispose();
+                OtherInfo.Dispose();
+
+                P = -1;
             }
-
-            C_Name.Dispose();
-            CubNo.Dispose();
-            EmpName.Dispose();
-            EmpSno.Dispose();
-            C_State.Dispose();
-            Other.Dispose();
-
-            S = -1;
-
-
-
+            
         }
-
-
-
 
     }
 
-
-
+    
 
     /// <summary>
     /// Creating CustomPictureBox to add additional properties to the cubicle picturebox which can be accessed later for application
@@ -581,7 +802,7 @@ namespace NavitasProject
             get;
             set;
         }
-        public int DateOfIssue
+        public String DateOfIssue
         {   //date of issue 
             get;
             set;

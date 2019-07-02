@@ -36,6 +36,7 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.browseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addResourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -151,17 +152,25 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.browseToolStripMenuItem});
+            this.browseToolStripMenuItem,
+            this.addResourceToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
             this.newToolStripMenuItem.Text = "New";
             // 
             // browseToolStripMenuItem
             // 
             this.browseToolStripMenuItem.Name = "browseToolStripMenuItem";
-            this.browseToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.browseToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
             this.browseToolStripMenuItem.Text = "Add Map";
             this.browseToolStripMenuItem.Click += new System.EventHandler(this.browseToolStripMenuItem_Click);
+            // 
+            // addResourceToolStripMenuItem
+            // 
+            this.addResourceToolStripMenuItem.Name = "addResourceToolStripMenuItem";
+            this.addResourceToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
+            this.addResourceToolStripMenuItem.Text = "Add Resource";
+            this.addResourceToolStripMenuItem.Click += new System.EventHandler(this.addResourceToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
@@ -227,7 +236,7 @@
             this.toolStripButton3,
             this.toolStripButton4});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.toolStrip1.Location = new System.Drawing.Point(0, 640);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 735);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.toolStrip1.Size = new System.Drawing.Size(273, 57);
@@ -288,7 +297,7 @@
             // AccessPanelSeparator1
             // 
             this.AccessPanelSeparator1.Controls.Add(this.ArrowKeys);
-            this.AccessPanelSeparator1.Location = new System.Drawing.Point(3, 407);
+            this.AccessPanelSeparator1.Location = new System.Drawing.Point(3, 502);
             this.AccessPanelSeparator1.Name = "AccessPanelSeparator1";
             this.AccessPanelSeparator1.Size = new System.Drawing.Size(347, 179);
             this.AccessPanelSeparator1.TabIndex = 4;
@@ -403,18 +412,18 @@
             // 
             // CancButton
             // 
-            this.CancButton.Location = new System.Drawing.Point(245, 592);
+            this.CancButton.Location = new System.Drawing.Point(245, 687);
             this.CancButton.Name = "CancButton";
             this.CancButton.Size = new System.Drawing.Size(100, 44);
             this.CancButton.TabIndex = 3;
-            this.CancButton.Text = "CANCEL";
+            this.CancButton.Text = "CLOSE";
             this.CancButton.UseVisualStyleBackColor = true;
             this.CancButton.Visible = false;
             this.CancButton.Click += new System.EventHandler(this.CancButton_Click);
             // 
             // SaveButton
             // 
-            this.SaveButton.Location = new System.Drawing.Point(108, 592);
+            this.SaveButton.Location = new System.Drawing.Point(108, 687);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(131, 45);
             this.SaveButton.TabIndex = 2;
@@ -425,7 +434,7 @@
             // 
             // ResetButton
             // 
-            this.ResetButton.Location = new System.Drawing.Point(3, 592);
+            this.ResetButton.Location = new System.Drawing.Point(3, 687);
             this.ResetButton.Name = "ResetButton";
             this.ResetButton.Size = new System.Drawing.Size(99, 45);
             this.ResetButton.TabIndex = 1;
@@ -455,7 +464,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(349, 357);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(349, 452);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // TitleAccessPanel
@@ -604,6 +613,7 @@
         private System.Windows.Forms.PictureBox pictureBox10;
         private System.Windows.Forms.FlowLayoutPanel ResourcesBay;
         private System.Windows.Forms.Label Resource_Bay;
+        private System.Windows.Forms.ToolStripMenuItem addResourceToolStripMenuItem;
     }
 }
 
