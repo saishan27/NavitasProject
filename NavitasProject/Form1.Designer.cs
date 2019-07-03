@@ -73,6 +73,10 @@
             this.FlowAccessPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.ResourcesBay = new System.Windows.Forms.FlowLayoutPanel();
             this.Resource_Bay = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.SearchBox = new System.Windows.Forms.TextBox();
+            this.SearchButton = new System.Windows.Forms.Button();
+            this.SearchCancelButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BaseMap)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -114,7 +118,7 @@
             // ClearAll
             // 
             this.ClearAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ClearAll.Location = new System.Drawing.Point(1512, 2);
+            this.ClearAll.Location = new System.Drawing.Point(1849, 2);
             this.ClearAll.Name = "ClearAll";
             this.ClearAll.Size = new System.Drawing.Size(75, 23);
             this.ClearAll.TabIndex = 1;
@@ -131,7 +135,7 @@
             this.viewToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1587, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1924, 28);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -328,7 +332,7 @@
             // 
             // UPArrow
             // 
-            this.UPArrow.Image = global::NavitasProject.Properties.Resources.iconfinder_arrow_up_circle_3313574__2_;
+            this.UPArrow.Image = global::NavitasProject.Properties.Resources.plus_sign_in_a_black_circle;
             this.UPArrow.Location = new System.Drawing.Point(59, 3);
             this.UPArrow.Name = "UPArrow";
             this.UPArrow.Size = new System.Drawing.Size(50, 50);
@@ -348,7 +352,7 @@
             // 
             // LeftArrow
             // 
-            this.LeftArrow.Image = global::NavitasProject.Properties.Resources.iconfinder_arrow_leftcircle_3313574___Copy;
+            this.LeftArrow.Image = global::NavitasProject.Properties.Resources.negative_sign_button;
             this.LeftArrow.Location = new System.Drawing.Point(3, 59);
             this.LeftArrow.Name = "LeftArrow";
             this.LeftArrow.Size = new System.Drawing.Size(50, 50);
@@ -372,7 +376,7 @@
             // 
             // RightArrow
             // 
-            this.RightArrow.Image = global::NavitasProject.Properties.Resources.iconfinder_arrow_right_circle_3313574___Copy__2_;
+            this.RightArrow.Image = global::NavitasProject.Properties.Resources.plus_sign_in_a_black_circle;
             this.RightArrow.Location = new System.Drawing.Point(115, 59);
             this.RightArrow.Name = "RightArrow";
             this.RightArrow.Size = new System.Drawing.Size(50, 50);
@@ -392,7 +396,7 @@
             // 
             // DownArrow
             // 
-            this.DownArrow.Image = global::NavitasProject.Properties.Resources.iconfinder_arrow_own_circle_3313574;
+            this.DownArrow.Image = global::NavitasProject.Properties.Resources.negative_sign_button;
             this.DownArrow.Location = new System.Drawing.Point(59, 115);
             this.DownArrow.Name = "DownArrow";
             this.DownArrow.Size = new System.Drawing.Size(50, 50);
@@ -504,9 +508,9 @@
             this.FlowAccessPanel.Controls.Add(this.SaveButton);
             this.FlowAccessPanel.Controls.Add(this.CancButton);
             this.FlowAccessPanel.Controls.Add(this.toolStrip1);
-            this.FlowAccessPanel.Location = new System.Drawing.Point(1238, 31);
+            this.FlowAccessPanel.Location = new System.Drawing.Point(1566, 31);
             this.FlowAccessPanel.Name = "FlowAccessPanel";
-            this.FlowAccessPanel.Size = new System.Drawing.Size(349, 887);
+            this.FlowAccessPanel.Size = new System.Drawing.Size(358, 887);
             this.FlowAccessPanel.TabIndex = 2;
             // 
             // ResourcesBay
@@ -528,11 +532,51 @@
             this.Resource_Bay.TabIndex = 5;
             this.Resource_Bay.Text = "Resource_Bay";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(1239, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(79, 17);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Search Bar";
+            // 
+            // SearchBox
+            // 
+            this.SearchBox.Location = new System.Drawing.Point(1242, 42);
+            this.SearchBox.Name = "SearchBox";
+            this.SearchBox.Size = new System.Drawing.Size(239, 22);
+            this.SearchBox.TabIndex = 7;
+            // 
+            // SearchButton
+            // 
+            this.SearchButton.Location = new System.Drawing.Point(1324, 75);
+            this.SearchButton.Name = "SearchButton";
+            this.SearchButton.Size = new System.Drawing.Size(75, 23);
+            this.SearchButton.TabIndex = 8;
+            this.SearchButton.Text = "Search";
+            this.SearchButton.UseVisualStyleBackColor = true;
+            this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
+            // 
+            // SearchCancelButton
+            // 
+            this.SearchCancelButton.Location = new System.Drawing.Point(1243, 75);
+            this.SearchCancelButton.Name = "SearchCancelButton";
+            this.SearchCancelButton.Size = new System.Drawing.Size(75, 23);
+            this.SearchCancelButton.TabIndex = 9;
+            this.SearchCancelButton.Text = "Cancel";
+            this.SearchCancelButton.UseVisualStyleBackColor = true;
+            this.SearchCancelButton.Click += new System.EventHandler(this.SearchCancelButton_Click);
+            // 
             // Res
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1587, 917);
+            this.ClientSize = new System.Drawing.Size(1924, 917);
+            this.Controls.Add(this.SearchCancelButton);
+            this.Controls.Add(this.SearchButton);
+            this.Controls.Add(this.SearchBox);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.Resource_Bay);
             this.Controls.Add(this.ResourcesBay);
             this.Controls.Add(this.FlowAccessPanel);
@@ -614,6 +658,10 @@
         private System.Windows.Forms.FlowLayoutPanel ResourcesBay;
         private System.Windows.Forms.Label Resource_Bay;
         private System.Windows.Forms.ToolStripMenuItem addResourceToolStripMenuItem;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox SearchBox;
+        private System.Windows.Forms.Button SearchButton;
+        private System.Windows.Forms.Button SearchCancelButton;
     }
 }
 

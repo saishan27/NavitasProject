@@ -109,5 +109,11 @@
   <ItemGroup>
     <None Include="Resources\iconfinder_sort_3017920.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\negative-sign-button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plus-sign-in-a-black-circle.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

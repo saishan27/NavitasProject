@@ -42,6 +42,10 @@ namespace NavitasProject
         Boolean IsCubicleOnEdit = false;
         Boolean IsResourceOnEdit = false;
 
+
+        System.Windows.Forms.ToolTip tt = new System.Windows.Forms.ToolTip();
+        //ToolTip Object
+
         public Res()
         {
             InitializeComponent();
@@ -104,6 +108,56 @@ namespace NavitasProject
             resPic[j].ResType = ResourceType;
             resPic[j].ResState = ResourceState;
             resPic[j].OtherInfo = OtherInformation;
+            
+
+            resPic[j].SizeMode = PictureBoxSizeMode.StretchImage;
+            resPic[j].BackColor = Color.Transparent;
+            //resPic[j].BackgroundImage = Properties.Resources.computer;
+            resPic[j].BackgroundImageLayout = ImageLayout.Stretch;
+            resPic[j].Location = new Point(0, 0);
+
+            resPic[j].MouseDown += new MouseEventHandler(resPic_MouseDown);
+
+            resPic[j].MouseUp += new MouseEventHandler(resPic_MouseUp);
+
+            resPic[j].MouseMove += new MouseEventHandler(resPic_MouseMove);
+
+            resPic[j].MouseHover += new EventHandler(resPic_MouseHover);
+
+            resPic[j].Tag = j;
+
+            resPic[j].LocationChanged += new EventHandler(resPic_LC);
+            //pb.Anchor = AnchorStyles.Left;
+
+            resPic[j].Visible = true;
+            //pictureBox1.Controls.Add(resPic[j]);
+            ResourcesBay.Controls.Add(resPic[j]);
+            j++;
+        }
+
+        private void createRes(string ResourceType)
+        {
+
+            //Mobile Resource creator 
+            resPic[j] = new ResourcePictureBox();
+            resPic[j].Size = new Size(30, 30);  //I use this picturebox simply to debug and see if I can create a single picturebox, and that way I can tell if something goes wrong with my array of pictureboxes. Thus far however, neither are working.
+
+            if (ResourceType == "computer")
+            {
+                resPic[j].Image = Properties.Resources.computer;
+            }
+            else if (ResourceType == "mobile")
+            {
+                resPic[j].Image = Properties.Resources.mobile;
+            }
+            else if (ResourceType == "keyboard")
+            {
+                resPic[j].Image = Properties.Resources.keyboard;
+            }
+            else if (ResourceType == "printer")
+            {
+                resPic[j].Image = Properties.Resources._5572;
+            }
             
 
             resPic[j].SizeMode = PictureBoxSizeMode.StretchImage;
@@ -212,8 +266,7 @@ namespace NavitasProject
 
         private void resPic_MouseHover(object sender, EventArgs e)
         {
-            System.Windows.Forms.ToolTip tt = new System.Windows.Forms.ToolTip();
-
+            
             tt.SetToolTip(this.resPic[(int)(((PictureBox)sender).Tag)], "Tag No:" + (int)(((PictureBox)sender).Tag));
         }
 
@@ -243,8 +296,6 @@ namespace NavitasProject
 
         private void cubPic_MouseHover(object sender, EventArgs e)
         {
-            System.Windows.Forms.ToolTip tt = new System.Windows.Forms.ToolTip();
-
             tt.SetToolTip(this.cubPic[(int)(((PictureBox)sender).Tag)], "Cubicle Tag No:" + (int)(((PictureBox)sender).Tag));
         }
 
@@ -272,99 +323,19 @@ namespace NavitasProject
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             //Mobile Resource creator 
-            resPic[j] = new ResourcePictureBox();
-            resPic[j].Size = new Size(30, 30);  //I use this picturebox simply to debug and see if I can create a single picturebox, and that way I can tell if something goes wrong with my array of pictureboxes. Thus far however, neither are working.
-            resPic[j].Image = Properties.Resources.computer;
-            resPic[j].SizeMode = PictureBoxSizeMode.StretchImage;
-            resPic[j].BackColor = Color.Transparent;
-            //resPic[j].BackgroundImage = Properties.Resources.computer;
-            resPic[j].BackgroundImageLayout = ImageLayout.Stretch;
-            resPic[j].Location = new Point(0, 0 + (60 * j));
-
-            resPic[j].MouseDown += new MouseEventHandler(resPic_MouseDown);
-
-            resPic[j].MouseUp += new MouseEventHandler(resPic_MouseUp);
-
-            resPic[j].MouseMove += new MouseEventHandler(resPic_MouseMove);
-
-            resPic[j].MouseHover += new EventHandler(resPic_MouseHover);
-
-            resPic[j].Tag = j;
-
-            resPic[j].LocationChanged += new EventHandler(resPic_LC);
-            //pb.Anchor = AnchorStyles.Left;
-
-            resPic[j].Visible = true;
-            //pictureBox1.Controls.Add(resPic[j]);
-            ResourcesBay.Controls.Add(resPic[j]);
-            j++;
+            createRes("computer");
 
 
         }
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            resPic[j] = new ResourcePictureBox();
-            resPic[j].Size = new Size(30, 30);  //I use this picturebox simply to debug and see if I can create a single picturebox, and that way I can tell if something goes wrong with my array of pictureboxes. Thus far however, neither are working.
-            resPic[j].BackColor = Color.Transparent;                                    //resPic[j].Image = Properties.Resources._5572;//Printer jpg file
-            resPic[j].Image = Properties.Resources._5572;
-            resPic[j].SizeMode = PictureBoxSizeMode.StretchImage;
-            resPic[j].BackgroundImageLayout = ImageLayout.Stretch;
-            resPic[j].Location = new Point(0, 0 + (60 * j));
-
-            resPic[j].MouseDown += new MouseEventHandler(resPic_MouseDown);
-
-            resPic[j].MouseUp += new MouseEventHandler(resPic_MouseUp);
-
-            resPic[j].MouseMove += new MouseEventHandler(resPic_MouseMove);
-
-            resPic[j].MouseHover += new EventHandler(resPic_MouseHover);
-
-
-
-            resPic[j].Tag = j;
-
-            resPic[j].LocationChanged += new EventHandler(resPic_LC);
-
-            //pb.Anchor = AnchorStyles.Left;
-
-            resPic[j].Visible = true;
-            // pictureBox1.Controls.Add(resPic[j]);
-            ResourcesBay.Controls.Add(resPic[j]);
-            j++;
+            createRes("printer");
         }
 
 
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
-            //Mobile Resource creator 
-            resPic[j] = new ResourcePictureBox();
-            resPic[j].Size = new Size(30, 30);  //I use this picturebox simply to debug and see if I can create a single picturebox, and that way I can tell if something goes wrong with my array of pictureboxes. Thus far however, neither are working.
-            resPic[j].BackColor = Color.Transparent;
-            resPic[j].Image = Properties.Resources.mobile;
-            resPic[j].SizeMode = PictureBoxSizeMode.StretchImage;
-            resPic[j].BackgroundImageLayout = ImageLayout.Stretch;
-            resPic[j].Location = new Point(0, 0 + (60 * j));
-
-            resPic[j].MouseDown += new MouseEventHandler(resPic_MouseDown);
-
-            resPic[j].MouseUp += new MouseEventHandler(resPic_MouseUp);
-
-            resPic[j].MouseMove += new MouseEventHandler(resPic_MouseMove);
-
-            resPic[j].MouseHover += new EventHandler(resPic_MouseHover);
-
-            resPic[j].Tag = j;
-
-           // resPic[j].MouseClick += new MouseEventHandler(resPic_MouseClick);
-            resPic[j].LocationChanged += new EventHandler(resPic_LC);
-
-
-            //pb.Anchor = AnchorStyles.Left;
-
-            resPic[j].Visible = true;
-            //pictureBox1.Controls.Add(resPic[j]);
-            ResourcesBay.Controls.Add(resPic[j]);
-            j++;
+            createRes("mobile");
 
         }
 
@@ -372,34 +343,7 @@ namespace NavitasProject
 
         private void toolStripButton4_Click(object sender, EventArgs e)
         {
-
-            resPic[j] = new ResourcePictureBox();
-            resPic[j].Size = new Size(30, 30);  //I use this picturebox simply to debug and see if I can create a single picturebox, and that way I can tell if something goes wrong with my array of pictureboxes. Thus far however, neither are working.
-            resPic[j].Image = Properties.Resources.keyboard;//keyboad jpg file
-            resPic[j].BackColor = Color.Transparent;
-            resPic[j].SizeMode = PictureBoxSizeMode.StretchImage;
-            resPic[j].BackgroundImageLayout = ImageLayout.Stretch;
-            resPic[j].Location = new Point(0, 0 + (60 * j));
-
-            resPic[j].MouseDown += new MouseEventHandler(resPic_MouseDown);
-
-            resPic[j].MouseUp += new MouseEventHandler(resPic_MouseUp);
-
-            resPic[j].MouseMove += new MouseEventHandler(resPic_MouseMove);
-
-            resPic[j].MouseHover += new EventHandler(resPic_MouseHover);
-
-            resPic[j].Tag = j;
-
-            
-            resPic[j].LocationChanged += new EventHandler(resPic_LC);
-
-            //pb.Anchor = AnchorStyles.Left;
-
-            resPic[j].Visible = true;
-            //pictureBox1.Controls.Add(resPic[j]);
-            ResourcesBay.Controls.Add(resPic[j]);
-            j++;
+            createRes("keyboard");
         }
 
 
@@ -410,7 +354,6 @@ namespace NavitasProject
                 resPic[i].Dispose();
 
             }
-            j = 0;
         }
 
         private void UPArrow_Click(object sender, EventArgs e)
@@ -418,7 +361,7 @@ namespace NavitasProject
 
             //cubPic[Q].Size.Height = (int)cubPic[Q].Size.Height + 1;
             Size temp = cubPic[S].Size;
-            temp.Height += 5;
+            temp.Height += 10;
             cubPic[S].Size = temp;
 
         }
@@ -431,12 +374,34 @@ namespace NavitasProject
             cubPic[S].Size = temp;
         }
 
-      
+        private void SearchButton_Click(object sender, EventArgs e)
+        {
+            string inp = SearchBox.Text;
+
+            for(int i = 0; i < j; i++)
+            {
+                if(inp == (string)resPic[i].ResNo)
+                {
+                    var obj = resPic[i].Parent;
+                    string o = obj.Location.X + "," + obj.Location.Y;
+                    obj.Focus();
+                    
+                    obj.BackColor = Color.LightSkyBlue;
+                    
+                }
+            }
+        }
+
+        private void SearchCancelButton_Click(object sender, EventArgs e)
+        {
+            SearchBox.Text = "";
+        }
+
         private void RightArrow_Click(object sender, EventArgs e)
         {
             //cubPic[Q].Size.Width += 1;
             Size temp = cubPic[S].Size;
-            temp.Width += 5;
+            temp.Width += 10;
             cubPic[S].Size = temp;
         }
 
@@ -584,11 +549,11 @@ namespace NavitasProject
 
                 cubPic[q] = new CustomPictureBox();
             cubPic[q].Size = new Size(100, 100);  //I use this picturebox simply to debug and see if I can create a single picturebox, and that way I can tell if something goes wrong with my array of pictureboxes. Thus far however, neither are working.
-            cubPic[q].Dock = DockStyle.Fill;
+            cubPic[q].Dock = DockStyle.Top;
             cubPic[q].SizeMode = PictureBoxSizeMode.Normal;
             cubPic[q].BackColor = Color.LightSkyBlue;
             cubPic[q].BorderStyle = BorderStyle.Fixed3D;
-            //resPic[q].BackgroundImage = Properties.Resources.computer;
+            cubPic[q].Anchor = AnchorStyles.Top;
             cubPic[q].BackgroundImageLayout = ImageLayout.Stretch;
             cubPic[q].Location = new Point(0, 0);
 
