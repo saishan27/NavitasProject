@@ -182,14 +182,15 @@
             this.openToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.resourceMapToolStripMenuItem});
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // resourceMapToolStripMenuItem
             // 
             this.resourceMapToolStripMenuItem.Name = "resourceMapToolStripMenuItem";
-            this.resourceMapToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
+            this.resourceMapToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.resourceMapToolStripMenuItem.Text = "ResourceMap";
+            this.resourceMapToolStripMenuItem.Click += new System.EventHandler(this.resourceMapToolStripMenuItem_Click_1);
             // 
             // toolStripSeparator1
             // 

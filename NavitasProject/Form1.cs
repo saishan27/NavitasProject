@@ -83,7 +83,7 @@ namespace NavitasProject
             }
 
         }
-        private  void createRes(string ResourceNo,string ResourceType,string AssignedEmpNo,string DateOfIssue,string AssignedCubNo,string ResourceState,string OtherInformation)
+        private  void createRes(string ResourceNo,string ResourceType,string AssignedEmpNo,string DateOfIssue,string AssignedCubNo,string ResourceState,string OtherInformation, int ParentTag)
         {
 
             //Mobile Resource creator 
@@ -134,7 +134,14 @@ namespace NavitasProject
 
             resPic[j].Visible = true;
             //pictureBox1.Controls.Add(resPic[j]);
-            ResourcesBay.Controls.Add(resPic[j]);
+            if (ParentTag == -1)
+            {
+                ResourcesBay.Controls.Add(resPic[j]);
+            }
+            else
+            {
+                cubPic[ParentTag].Controls.Add(resPic[j]);
+            }
             j++;
         }
 
@@ -226,7 +233,7 @@ namespace NavitasProject
                     foreach (DataRow row in dt.Rows)
                     {
                         //string file = row.Field<string>(0);
-                        createRes(row.Field<string>(0), row.Field<string>(1), row.Field<string>(2), row.Field<string>(3), row.Field<string>(4), row.Field<string>(5), row.Field<string>(6));
+                        createRes(row.Field<string>(0), row.Field<string>(1), row.Field<string>(2), row.Field<string>(3), row.Field<string>(4), row.Field<string>(5), row.Field<string>(6),-1);
                         
 
                     }
@@ -414,10 +421,137 @@ namespace NavitasProject
             cubPic[S].Size = temp;
         }
 
+        private void createCubicle(string tagNo, string Locationx, string Locationy, string height, string width,string C_Name, string CubNo, string EmpName, string EmpSno, string C_State, string Other)
+        {
+            int Height = Int32.Parse(height);
+            int Width = Int32.Parse(width);
+            int TagNo = Int32.Parse(tagNo);
+            int LocationX = Int32.Parse(Locationx);
+            int LocationY = Int32.Parse(Locationy);
+            cubPic[TagNo] = new CustomPictureBox();
+            cubPic[TagNo].Size = new Size(Width,Height);  //I use this picturebox simply to debug and see if I can create a single picturebox, and that way I can tell if something goes wrong with my array of pictureboxes. Thus far however, neither are working.
+            cubPic[TagNo].Dock = DockStyle.Top;
+            cubPic[TagNo].SizeMode = PictureBoxSizeMode.Normal;
+            cubPic[TagNo].BackColor = Color.LightSkyBlue;
+            cubPic[TagNo].BorderStyle = BorderStyle.Fixed3D;
+            cubPic[TagNo].Anchor = AnchorStyles.Top;
+            cubPic[TagNo].BackgroundImageLayout = ImageLayout.Stretch;
+            
+
+            cubPic[TagNo].MouseDown += new MouseEventHandler(cubPic_MouseDown);
+            cubPic[TagNo].MouseUp += new MouseEventHandler(cubPic_MouseUp);
+            cubPic[TagNo].MouseMove += new MouseEventHandler(cubPic_MouseMove);
+            cubPic[TagNo].MouseHover += new EventHandler(cubPic_MouseHover);
+            cubPic[TagNo].MouseDoubleClick += new MouseEventHandler(cubPic_MouseDoubleClick);
+            cubPic[TagNo].DragOver += new DragEventHandler(cubPic_DragOver);
+            cubPic[TagNo].DragDrop += new DragEventHandler(cubPic_DragDrop);
+
+            //
+
+            cubPic[TagNo].Tag = TagNo;
+            this.cubPic[TagNo].AllowDrop = true;
+
+            cubPic[TagNo].Anchor = AnchorStyles.Top;
+            cubPic[TagNo].SendToBack();
+            cubPic[TagNo].Visible = true;
+            BaseMap.Controls.Add(cubPic[TagNo]);
+            cubPic[TagNo].Location = new Point(LocationX, LocationY);
+
+            //Attributes of the cubicles
+            cubPic[TagNo].C_Name = C_Name;
+            cubPic[TagNo].CubNo = CubNo;
+            cubPic[TagNo].EmpName = EmpName;
+            cubPic[TagNo].EmpSno = EmpSno;
+            cubPic[TagNo].C_State = C_State;
+            cubPic[TagNo].Other = Other;
+            
+
+            q++;
+        }
+        private void resourceMapToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+
+            String txtLocation = "";
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "TXT files(*.txt)|*.txt";
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    txtLocation = dialog.FileName;
+                    string[] Lines = File.ReadAllLines(txtLocation);
+                    string[] Fields;
+                    Fields = Lines[0].Split(new char[] { ',' });
+                    int Cols = Fields.GetLength(0);
+                    DataTable dt = new DataTable();
+
+                    
+                    //1st row must be column names; force lower case to ensure matching later on.
+                    for (int i = 0; i < 15; i++)
+                    { string I = ""+ i + "";
+                        dt.Columns.Add(I, typeof(string));
+
+                    }
+                    
+
+                    // FIRST LINE FORMAT IS (ImageLocationInComputer , Number of cubicles, number of resources
+                    BaseMapImageLocation = Fields[0];
+                    BaseMap.ImageLocation = BaseMapImageLocation;
+                   
+                    //createCubicle(0, 480, 161, 100, 100, "", "", "", "", "", "");//Testing CreateCubicle Method -- RESULT__ WORKS FINE
+
+                    int NoOfCubicles = Int32.Parse(Fields[1]);
+                    int NoOfResources = Int32.Parse(Fields[2]);
+
+                    //This will iterate till all cubicles data are saved
+                    //This Format is (Tag No,Location X in BaseMAp,Location Y in BaseMap, Size Height,Size Width,
+                    //cubicle.Attributes= C_Name, CubNo, EmpName, EmpSno, C_State, Other;
+                    
+                    DataRow Row;
+
+                    for (int i = 1; i <= NoOfCubicles+NoOfResources; i++)
+                    {
+                        Fields = Lines[i].Split(new char[] { ',' });
+                        Row = dt.NewRow();
+                        for (int f = 0; f < 10; f++)
+                        {
+                            Row[f] = Fields[f];
+                        }
+
+                        MessageBox.Show(i + "");
+                        dt.Rows.Add(Row);
+                        
+                    }
+                    //foreach (DataRow row in dt.Rows)
+                    for(int i=0;i<NoOfCubicles;i++)
+                    {
+                        createCubicle(dt.Rows[i].Field<string>(0), dt.Rows[i].Field<string>(1), dt.Rows[i].Field<string>(2), dt.Rows[i].Field<string>(3), dt.Rows[i].Field<string>(4), dt.Rows[i].Field<string>(5), dt.Rows[i].Field<string>(6), dt.Rows[i].Field<string>(7), dt.Rows[i].Field<string>(8), dt.Rows[i].Field<string>(9), dt.Rows[i].Field<string>(10));
+                        
+                    }
+                 
+                    for(int i = NoOfCubicles + 1; i < NoOfCubicles + NoOfResources; i++)
+                    {
+                        //This will iterate till all resources data are saved in string 
+                        //This Format is (Resource Tag No,ParentCubicleTag,
+                        //Resources.Attributes = ResNo, ResState,  AssCubNo, AssEmpNo,OtherInfo , ResType,DateOfIssue;
+                       // createRes(dt.Rows[i].Field<string>(0), dt.Rows[i].Field<string>(1), dt.Rows[i].Field<string>(2), dt.Rows[i].Field<string>(3), dt.Rows[i].Field<string>(4), dt.Rows[i].Field<string>(5), dt.Rows[i].Field<string>(6), dt.Rows[i].Field<string>(6));
+                        MessageBox.Show("ACTIVE");
+                    }           
+                    
+                }
+
+            }
+            catch (Exception a)
+            {
+                string E = a + "";
+                MessageBox.Show(E,"An Error Occured", MessageBoxButtons.OK);
+            }
+        }
+
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // FIRST LINE FORMAT IS (ImageLocationInComputer , Number of cubicles, number of resources
-            String storeCsv = BaseMapImageLocation + "," + q + "," + j+Environment.NewLine;
+            String storeCsv = BaseMapImageLocation + "," + q + "," + j + "," + "," + "," + "," + "," + "," + "," + "," + "," + "," + "," + "," + "," + Environment.NewLine;
 
 
             //This will iterate till all cubicles data are saved
@@ -449,7 +583,7 @@ namespace NavitasProject
                 storeCsv = storeCsv + Environment.NewLine;
             }
             SaveFileDialog save = new SaveFileDialog();
-            save.FileName = "DefaultOutputName.txt";
+            save.FileName = "SaveMAP.txt";
             save.Filter = "Text File | *.txt";
             if (save.ShowDialog() == DialogResult.OK)
             {
@@ -460,57 +594,7 @@ namespace NavitasProject
 
             }
         }
-
-        private void resourceMapToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            String txtLocation = "";
-            try
-            {
-                OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = "TXT files(*.txt)|*.txt";
-                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    txtLocation = dialog.FileName;
-                    string[] Lines = File.ReadAllLines(txtLocation);
-                    string[] Fields;
-                    Fields = Lines[0].Split(new char[] { ',' });
-                    int Cols = Fields.GetLength(0);
-                    DataTable dt = new DataTable();
-
-                    //1st row must be column names; force lower case to ensure matching later on.
-                    for (int i = 0; i < Cols; i++)
-                    {
-                        dt.Columns.Add(Fields[i].ToLower(), typeof(string));
-
-                    }
-                    DataRow Row;
-
-                    for (int i = 1; i < Lines.GetLength(0); i++)
-                    {
-                        Fields = Lines[i].Split(new char[] { ',' });
-                        Row = dt.NewRow();
-                        for (int f = 0; f < Cols; f++)
-                            Row[f] = Fields[f];
-                        dt.Rows.Add(Row);
-                    }
-
-                    foreach (DataRow row in dt.Rows)
-                    {
-                        //string file = row.Field<string>(0);
-                        createRes(row.Field<string>(0), row.Field<string>(1), row.Field<string>(2), row.Field<string>(3), row.Field<string>(4), row.Field<string>(5), row.Field<string>(6));
-
-
-                    }
-                }
-                
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("An Error Occured", "Error", MessageBoxButtons.OK);
-            }
-        }
-
+        
         private void LeftArrow_Click(object sender, EventArgs e)
         {
             //cubPic[Q].Size.Height += 1;
@@ -531,7 +615,8 @@ namespace NavitasProject
             cubPic[S].Size = temp;
             */
          }
-                private void resPic_LC(object sender, EventArgs e)
+
+        private void resPic_LC(object sender, EventArgs e)
         {
             if (!IsResourceOnEdit && !IsCubicleOnEdit )
             {
@@ -541,9 +626,7 @@ namespace NavitasProject
                 CancButton.Visible = true;
 
                 P = (int)(((PictureBox)sender).Tag);
-
                 
-
 
                 l[0] = new Label { Text = "ResNo:", Anchor = AnchorStyles.Left, Tag = "resLabels", AutoSize = true };
                 tableLayoutPanel1.Controls.Add(l[0], 0, 0);
@@ -602,10 +685,6 @@ namespace NavitasProject
                 RightArrow.Visible = true;
                 DownArrow.Visible = true;
                 S = (int)(((PictureBox)sender).Tag);
-
-                
-                
-                
                 
 
                 l[0] = new Label { Text = "C_Name:", Anchor = AnchorStyles.Left, Tag = "cubicleLabels", AutoSize = true };
