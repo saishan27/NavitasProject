@@ -38,6 +38,7 @@
             this.browseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addResourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resourceMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -104,7 +105,7 @@
             this.panel1.Controls.Add(this.BaseMap);
             this.panel1.Location = new System.Drawing.Point(12, 31);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(973, 658);
+            this.panel1.Size = new System.Drawing.Size(1106, 658);
             this.panel1.TabIndex = 2;
             // 
             // BaseMap
@@ -178,9 +179,17 @@
             // 
             // openToolStripMenuItem
             // 
+            this.openToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.resourceMapToolStripMenuItem});
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
             this.openToolStripMenuItem.Text = "Open";
+            // 
+            // resourceMapToolStripMenuItem
+            // 
+            this.resourceMapToolStripMenuItem.Name = "resourceMapToolStripMenuItem";
+            this.resourceMapToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
+            this.resourceMapToolStripMenuItem.Text = "ResourceMap";
             // 
             // toolStripSeparator1
             // 
@@ -198,6 +207,7 @@
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
             this.saveAsToolStripMenuItem.Text = "Save As";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -517,16 +527,17 @@
             // 
             this.ResourcesBay.AllowDrop = true;
             this.ResourcesBay.BackColor = System.Drawing.SystemColors.Window;
-            this.ResourcesBay.Location = new System.Drawing.Point(991, 36);
+            this.ResourcesBay.Location = new System.Drawing.Point(1127, 151);
             this.ResourcesBay.Name = "ResourcesBay";
-            this.ResourcesBay.Size = new System.Drawing.Size(241, 653);
+            this.ResourcesBay.Size = new System.Drawing.Size(241, 385);
             this.ResourcesBay.TabIndex = 4;
+            this.ResourcesBay.Tag = "0";
             // 
             // Resource_Bay
             // 
             this.Resource_Bay.AutoSize = true;
             this.Resource_Bay.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.Resource_Bay.Location = new System.Drawing.Point(991, 16);
+            this.Resource_Bay.Location = new System.Drawing.Point(1124, 131);
             this.Resource_Bay.Name = "Resource_Bay";
             this.Resource_Bay.Size = new System.Drawing.Size(101, 17);
             this.Resource_Bay.TabIndex = 5;
@@ -535,7 +546,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1239, 16);
+            this.label1.Location = new System.Drawing.Point(1124, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(79, 17);
             this.label1.TabIndex = 6;
@@ -543,14 +554,14 @@
             // 
             // SearchBox
             // 
-            this.SearchBox.Location = new System.Drawing.Point(1242, 42);
+            this.SearchBox.Location = new System.Drawing.Point(1124, 47);
             this.SearchBox.Name = "SearchBox";
             this.SearchBox.Size = new System.Drawing.Size(239, 22);
             this.SearchBox.TabIndex = 7;
             // 
             // SearchButton
             // 
-            this.SearchButton.Location = new System.Drawing.Point(1324, 75);
+            this.SearchButton.Location = new System.Drawing.Point(1205, 75);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 23);
             this.SearchButton.TabIndex = 8;
@@ -560,7 +571,7 @@
             // 
             // SearchCancelButton
             // 
-            this.SearchCancelButton.Location = new System.Drawing.Point(1243, 75);
+            this.SearchCancelButton.Location = new System.Drawing.Point(1124, 75);
             this.SearchCancelButton.Name = "SearchCancelButton";
             this.SearchCancelButton.Size = new System.Drawing.Size(75, 23);
             this.SearchCancelButton.TabIndex = 9;
@@ -662,6 +673,7 @@
         private System.Windows.Forms.TextBox SearchBox;
         private System.Windows.Forms.Button SearchButton;
         private System.Windows.Forms.Button SearchCancelButton;
+        private System.Windows.Forms.ToolStripMenuItem resourceMapToolStripMenuItem;
     }
 }
 

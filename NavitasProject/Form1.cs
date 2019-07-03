@@ -19,32 +19,36 @@ namespace NavitasProject
         bool draggingCube = false;
         Point dragPointCube = Point.Empty;
 
-
-
-
-
         int J = -1; // Array Pointer which points the value of resPic Array tag
         int j = 0; //Resource Picturebox Array Index
         int q = 0; // Cubicle Picturebox Array Index 
         int Q = -1; // Cubicle dragdrop TAG;
         int S = -1; // Cubicle Resize 
         int P = -1; //Resource Resize
-        ResourcePictureBox[] resPic = new ResourcePictureBox[50];
+        int SearchIndicator = -1; //Used to indicate search tag
 
-        CustomPictureBox[] cubPic = new CustomPictureBox[50];
+        
+        ResourcePictureBox[] resPic = new ResourcePictureBox[100];
+        CustomPictureBox[] cubPic = new CustomPictureBox[100];
+        
         //Textbox to set custom properties to cubicle pixturebox
         TextBox C_Name, CubNo, EmpName, EmpSno, C_State, Other;
         TextBox OtherInfo, ResState,  AssCubNo, AssEmpNo, ResNo, ResType;
         TextBox DateOfIssue;
-        //Labels for cubicle;
+
+        //Labels for cubicle and resources;
         Label[] l = new Label[7];
+
         //Edit menu selection
         Boolean IsCubicleOnEdit = false;
         Boolean IsResourceOnEdit = false;
 
-
-        System.Windows.Forms.ToolTip tt = new System.Windows.Forms.ToolTip();
         //ToolTip Object
+        System.Windows.Forms.ToolTip tt = new System.Windows.Forms.ToolTip();
+
+        //BaseMap ImageLocation
+        String BaseMapImageLocation = "";
+
 
         public Res()
         {
@@ -62,15 +66,14 @@ namespace NavitasProject
 
         private void browseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            String imageLocation = "";
             try
             {
                 OpenFileDialog dialog = new OpenFileDialog();
                 dialog.Filter = "jpg files(*.jpg)|*.jpg| PNG files()|*.png| All Files(*.*)|*.*";
                 if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    imageLocation = dialog.FileName;
-                    BaseMap.ImageLocation = imageLocation;
+                    BaseMapImageLocation = dialog.FileName;
+                    BaseMap.ImageLocation = BaseMapImageLocation;
                 }
 
             }
@@ -183,6 +186,8 @@ namespace NavitasProject
             //pictureBox1.Controls.Add(resPic[j]);
             ResourcesBay.Controls.Add(resPic[j]);
             j++;
+
+            ClearMyAccessPanel();
         }
 
         private void addResourceToolStripMenuItem_Click(object sender, EventArgs e)
@@ -225,6 +230,7 @@ namespace NavitasProject
                         
 
                     }
+                    ClearMyAccessPanel();
                 }
 
 
@@ -385,8 +391,9 @@ namespace NavitasProject
                     var obj = resPic[i].Parent;
                     string o = obj.Location.X + "," + obj.Location.Y;
                     obj.Focus();
-                    
-                    obj.BackColor = Color.LightSkyBlue;
+                    resPic[i].Focus();
+                    resPic[i].BackColor = Color.LightSalmon;
+                    SearchIndicator = i;
                     
                 }
             }
@@ -394,6 +401,8 @@ namespace NavitasProject
 
         private void SearchCancelButton_Click(object sender, EventArgs e)
         {
+            resPic[SearchIndicator].BackColor = Color.Empty;
+            SearchIndicator = -1;
             SearchBox.Text = "";
         }
 
@@ -403,6 +412,103 @@ namespace NavitasProject
             Size temp = cubPic[S].Size;
             temp.Width += 10;
             cubPic[S].Size = temp;
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // FIRST LINE FORMAT IS (ImageLocationInComputer , Number of cubicles, number of resources
+            String storeCsv = BaseMapImageLocation + "," + q + "," + j+Environment.NewLine;
+
+
+            //This will iterate till all cubicles data are saved
+            //This Format is (Tag No,Location X in BaseMAp,Location Y in BaseMap, Size Height,Size Width,
+            //cubicle.Attributes= C_Name, CubNo, EmpName, EmpSno, C_State, Other;
+            for (int i = 0; i < q; i++) { 
+                storeCsv = storeCsv + i +","+cubPic[i].Location.X+","+cubPic[i].Location.Y+ "," + cubPic[i].Size.Height + "," + cubPic[i].Size.Width + ",";
+                storeCsv = storeCsv + cubPic[i].C_Name+","+cubPic[i].CubNo+","+cubPic[i].EmpName+","+cubPic[i].EmpSno+","+cubPic[i].C_State+","+cubPic[i].Other;
+                storeCsv = storeCsv + Environment.NewLine;
+            }
+
+            //This will iterate till all resources data are saved in string 
+            //This Format is (Resource Tag No,ParentCubicleTag,
+            //Resources.Attributes = ResNo, ResState,  AssCubNo, AssEmpNo,OtherInfo , ResType,DateOfIssue;
+            int cubicleTag;
+            for (int i = 0; i < j; i++)
+            {
+                if (resPic[i].Parent is PictureBox)
+                {
+                    cubicleTag = (int)resPic[i].Parent.Tag;
+                }
+                else
+                {
+                    cubicleTag = -1;
+                }
+
+                storeCsv = storeCsv + i + "," + cubicleTag + ",";
+                storeCsv = storeCsv + resPic[i].ResNo+","+resPic[i].ResState+","+resPic[i].AssCubNo+","+ resPic[i].AssEmpNo+","+resPic[i].OtherInfo+","+resPic[i].ResType+","+resPic[i].DateOfIssue;
+                storeCsv = storeCsv + Environment.NewLine;
+            }
+            SaveFileDialog save = new SaveFileDialog();
+            save.FileName = "DefaultOutputName.txt";
+            save.Filter = "Text File | *.txt";
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                StreamWriter writer = new StreamWriter(save.OpenFile());
+                writer.WriteLine(storeCsv);
+                writer.Dispose();
+                writer.Close();
+
+            }
+        }
+
+        private void resourceMapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            String txtLocation = "";
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "TXT files(*.txt)|*.txt";
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    txtLocation = dialog.FileName;
+                    string[] Lines = File.ReadAllLines(txtLocation);
+                    string[] Fields;
+                    Fields = Lines[0].Split(new char[] { ',' });
+                    int Cols = Fields.GetLength(0);
+                    DataTable dt = new DataTable();
+
+                    //1st row must be column names; force lower case to ensure matching later on.
+                    for (int i = 0; i < Cols; i++)
+                    {
+                        dt.Columns.Add(Fields[i].ToLower(), typeof(string));
+
+                    }
+                    DataRow Row;
+
+                    for (int i = 1; i < Lines.GetLength(0); i++)
+                    {
+                        Fields = Lines[i].Split(new char[] { ',' });
+                        Row = dt.NewRow();
+                        for (int f = 0; f < Cols; f++)
+                            Row[f] = Fields[f];
+                        dt.Rows.Add(Row);
+                    }
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        //string file = row.Field<string>(0);
+                        createRes(row.Field<string>(0), row.Field<string>(1), row.Field<string>(2), row.Field<string>(3), row.Field<string>(4), row.Field<string>(5), row.Field<string>(6));
+
+
+                    }
+                }
+                
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("An Error Occured", "Error", MessageBoxButtons.OK);
+            }
         }
 
         private void LeftArrow_Click(object sender, EventArgs e)
@@ -424,7 +530,7 @@ namespace NavitasProject
             temp.Height += 2;
             cubPic[S].Size = temp;
             */
-                }
+         }
                 private void resPic_LC(object sender, EventArgs e)
         {
             if (!IsResourceOnEdit && !IsCubicleOnEdit )
@@ -533,10 +639,7 @@ namespace NavitasProject
                 tableLayoutPanel1.Controls.Add(l[5], 0, 5);
                 Other = new TextBox { AccessibleName = "Other", Dock = DockStyle.Fill,Text= cubPic[S].Other };
                 tableLayoutPanel1.Controls.Add(Other, 1, 5);
-
-                //q is the tag used to assign
-                //Q = (int)(((PictureBox)sender).Tag);
-
+                
             }
 
         }
@@ -544,10 +647,8 @@ namespace NavitasProject
         {  /*
             # The cubicles are created using this method and they are created dynamically using array. the maximum size of the array is declared in the top 
             */
-
-
-
-                cubPic[q] = new CustomPictureBox();
+            
+            cubPic[q] = new CustomPictureBox();
             cubPic[q].Size = new Size(100, 100);  //I use this picturebox simply to debug and see if I can create a single picturebox, and that way I can tell if something goes wrong with my array of pictureboxes. Thus far however, neither are working.
             cubPic[q].Dock = DockStyle.Top;
             cubPic[q].SizeMode = PictureBoxSizeMode.Normal;
@@ -626,7 +727,30 @@ namespace NavitasProject
                 OtherInfo.Text = "";
             }
         }
+        private void ClearMyAccessPanel()
+        {
 
+            IsResourceOnEdit = false;
+            ResetButton.Visible = false;
+            SaveButton.Visible = false;
+            CancButton.Visible = false;
+
+            for (int i = 0; i < 7; i++)
+            {
+                l[i].Visible = false;
+                l[i].Dispose();
+            }
+
+            AssEmpNo.Dispose();
+            AssCubNo.Dispose();
+            ResNo.Dispose();
+            ResType.Dispose();
+            ResState.Dispose();
+            DateOfIssue.Dispose();
+            OtherInfo.Dispose();
+
+            P = -1;
+        }
         private void CancButton_Click(object sender, EventArgs e)
         {
             if (IsCubicleOnEdit)
@@ -685,14 +809,9 @@ namespace NavitasProject
         }
 
     }
-
-    
-
     /// <summary>
     /// Creating CustomPictureBox to add additional properties to the cubicle picturebox which can be accessed later for application
     /// </summary>
-    /// 
-
     public class CustomPictureBox : PictureBox
     {
         public CustomPictureBox() : base()
@@ -782,6 +901,6 @@ namespace NavitasProject
             get;
             set;
         }
-}
+    }
     
 }
