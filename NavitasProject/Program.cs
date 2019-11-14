@@ -16,7 +16,7 @@ namespace NavitasProject
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Res());
+           Application.Run(new Res());
         }
     }
 }

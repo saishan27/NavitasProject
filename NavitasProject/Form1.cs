@@ -93,15 +93,22 @@ namespace NavitasProject
             if (ResourceType == "computer")
             {
                 resPic[j].Image = Properties.Resources.computer;
-            }else if(ResourceType == "mobile")
+                resPic[j].ResType = "computer";
+            }
+            else if(ResourceType == "mobile")
             {
                 resPic[j].Image = Properties.Resources.mobile;
-            }else if(ResourceType == "keyboard")
+                resPic[j].ResType = "mobile";
+            }
+            else if(ResourceType == "keyboard")
             {
                 resPic[j].Image = Properties.Resources.keyboard;
-            }else if(ResourceType == "printer")
+                resPic[j].ResType = "keyboard";
+            }
+            else if(ResourceType == "printer")
             {
                 resPic[j].Image = Properties.Resources._5572;
+                resPic[j].ResType = "printer";
             }
 
             resPic[j].DateOfIssue = DateOfIssue;
@@ -145,6 +152,8 @@ namespace NavitasProject
             j++;
         }
 
+
+
         private void createRes(string ResourceType)
         {
 
@@ -155,20 +164,25 @@ namespace NavitasProject
             if (ResourceType == "computer")
             {
                 resPic[j].Image = Properties.Resources.computer;
+                resPic[j].ResType = "computer";
             }
             else if (ResourceType == "mobile")
             {
                 resPic[j].Image = Properties.Resources.mobile;
+                resPic[j].ResType = "mobile";
             }
             else if (ResourceType == "keyboard")
             {
                 resPic[j].Image = Properties.Resources.keyboard;
+                resPic[j].ResType = "keyboard";
             }
             else if (ResourceType == "printer")
             {
                 resPic[j].Image = Properties.Resources._5572;
+                resPic[j].ResType = "printer";
             }
-            
+
+
 
             resPic[j].SizeMode = PictureBoxSizeMode.StretchImage;
             resPic[j].BackColor = Color.Transparent;
@@ -197,27 +211,101 @@ namespace NavitasProject
             ClearMyAccessPanel();
         }
 
+
+        /*private void createRes(string ResourceTag,string ParentCubicleTag,string ResourceType,string ResourceNo, string AssignedEmpNo, string DateOfIssue, string AssignedCubNo, string ResourceState, string OtherInformation, int ParentTag)
+        {
+
+            //Mobile Resource creator 
+            resPic[j] = new ResourcePictureBox();
+            resPic[j].Size = new Size(30, 30);  //I use this picturebox simply to debug and see if I can create a single picturebox, and that way I can tell if something goes wrong with my array of pictureboxes. Thus far however, neither are working.
+
+            if (ResourceType == "computer")
+            {
+                resPic[j].Image = Properties.Resources.computer;
+                resPic[j].ResType = "computer";
+            }
+            else if (ResourceType == "mobile")
+            {
+                resPic[j].Image = Properties.Resources.mobile;
+                resPic[j].ResType = "mobile";
+            }
+            else if (ResourceType == "keyboard")
+            {
+                resPic[j].Image = Properties.Resources.keyboard;
+                resPic[j].ResType = "keyboard";
+            }
+            else if (ResourceType == "printer")
+            {
+                resPic[j].Image = Properties.Resources._5572;
+                resPic[j].ResType = "printer";
+            }
+
+            resPic[j].DateOfIssue = DateOfIssue;
+            resPic[j].AssCubNo = AssignedCubNo;
+            resPic[j].AssEmpNo = AssignedEmpNo;
+            resPic[j].ResNo = ResourceNo;
+            resPic[j].ResType = ResourceType;
+            resPic[j].ResState = ResourceState;
+            resPic[j].OtherInfo = OtherInformation;
+
+
+            resPic[j].SizeMode = PictureBoxSizeMode.StretchImage;
+            resPic[j].BackColor = Color.Transparent;
+            //resPic[j].BackgroundImage = Properties.Resources.computer;
+            resPic[j].BackgroundImageLayout = ImageLayout.Stretch;
+            resPic[j].Location = new Point(0, 0);
+
+            resPic[j].MouseDown += new MouseEventHandler(resPic_MouseDown);
+
+            resPic[j].MouseUp += new MouseEventHandler(resPic_MouseUp);
+
+            resPic[j].MouseMove += new MouseEventHandler(resPic_MouseMove);
+
+            resPic[j].MouseHover += new EventHandler(resPic_MouseHover);
+
+            resPic[j].Tag = j;
+
+            resPic[j].LocationChanged += new EventHandler(resPic_LC);
+            //pb.Anchor = AnchorStyles.Left;
+
+            resPic[j].Visible = true;
+            //pictureBox1.Controls.Add(resPic[j]);
+            if (ParentTag == -1)
+            {
+                ResourcesBay.Controls.Add(resPic[j]);
+            }
+            else
+            {
+                cubPic[ParentTag].Controls.Add(resPic[j]);
+            }
+            j++;
+        }
+        */
         private void addResourceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             String csvLocation = "";
             try
             {
                 OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = "CSV files(*.csv)|*.csv";
+                dialog.Filter = "txt files(*.txt)|*.txt";
                 if(dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     csvLocation = dialog.FileName;
+                    
                     string[] Lines = File.ReadAllLines(csvLocation);
+                    
+                    
                     string[] Fields;
                     Fields = Lines[0].Split(new char[] { ',' });
                     int Cols = Fields.GetLength(0);
                     DataTable dt = new DataTable();
 
+
                     //1st row must be column names; force lower case to ensure matching later on.
-                    for(int i = 0; i < Cols; i++)
+                    for (int i = 0; i < Cols; i++)
                     {
                         dt.Columns.Add(Fields[i].ToLower(), typeof(string));
-                        
+
                     }
                     DataRow Row;
 
@@ -234,10 +322,10 @@ namespace NavitasProject
                     {
                         //string file = row.Field<string>(0);
                         createRes(row.Field<string>(0), row.Field<string>(1), row.Field<string>(2), row.Field<string>(3), row.Field<string>(4), row.Field<string>(5), row.Field<string>(6),-1);
-                        
 
                     }
                     ClearMyAccessPanel();
+                    
                 }
 
 
@@ -468,6 +556,8 @@ namespace NavitasProject
 
             q++;
         }
+        //Adding resource from map which is saved 
+        //DECODING
         private void resourceMapToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
 
@@ -513,12 +603,25 @@ namespace NavitasProject
                     {
                         Fields = Lines[i].Split(new char[] { ',' });
                         Row = dt.NewRow();
-                        for (int f = 0; f < 10; f++)
+                        // we have 11 attributes for 
+                        if (i < NoOfCubicles)
                         {
-                            Row[f] = Fields[f];
+                            for (int f = 0; f < 11; f++)
+                            {
+                                Row[f] = Fields[f];
+                            }
                         }
-
-                        MessageBox.Show(i + "");
+                        // we have 10 attributes here
+                        else
+                        {
+                            for (int f = 0; f <= 8; f++)
+                            {
+                                Row[f] = Fields[f];
+                            }
+                        }
+                        
+                        
+                        MessageBox.Show("row = " +i + "");
                         dt.Rows.Add(Row);
                         
                     }
@@ -532,9 +635,25 @@ namespace NavitasProject
                     for(int i = NoOfCubicles + 1; i < NoOfCubicles + NoOfResources; i++)
                     {
                         //This will iterate till all resources data are saved in string 
-                        //This Format is (Resource Tag No,ParentCubicleTag,
-                        //Resources.Attributes = ResNo, ResState,  AssCubNo, AssEmpNo,OtherInfo , ResType,DateOfIssue;
-                       // createRes(dt.Rows[i].Field<string>(0), dt.Rows[i].Field<string>(1), dt.Rows[i].Field<string>(2), dt.Rows[i].Field<string>(3), dt.Rows[i].Field<string>(4), dt.Rows[i].Field<string>(5), dt.Rows[i].Field<string>(6), dt.Rows[i].Field<string>(6));
+
+                        //This Format is (Resource Tag No,ParentCubicleTag,ResType
+                        //Resources.Attributes = ResNo, ResState,  AssCubNo, AssEmpNo,OtherInfo ,DateOfIssue;
+                        string tempResourceTag = dt.Rows[i].Field<string>(0);
+                        int tempParentCubicleTag = Int32.Parse(dt.Rows[i].Field<string>(1));
+                        string tempResNo = dt.Rows[i].Field<string>(2);
+                        string tempResState = dt.Rows[i].Field<string>(3);
+                        string tempAssCubNo = dt.Rows[i].Field<string>(4);
+                        string tempAssEmpNo = dt.Rows[i].Field<string>(5);
+                        string tempOtherInfo = dt.Rows[i].Field<string>(6);
+						string tempResType = dt.Rows[i].Field<string>(7);
+                        string tempDOI = dt.Rows[i].Field<string>(8);
+
+                        //int tempForArgument = Int32.Parse(dt.Rows[i].Field<string>(7));
+                        //createRes(dt.Rows[i].Field<string>(0), dt.Rows[i].Field<string>(1), dt.Rows[i].Field<string>(2), dt.Rows[i].Field<string>(3), dt.Rows[i].Field<string>(4), dt.Rows[i].Field<string>(5), dt.Rows[i].Field<string>(6),tempForArgument);
+                        createRes(tempResNo, tempResType, tempAssEmpNo, tempDOI, tempAssCubNo, tempResState, tempOtherInfo, tempParentCubicleTag);
+
+
+
                         MessageBox.Show("ACTIVE");
                     }           
                     
@@ -548,6 +667,7 @@ namespace NavitasProject
             }
         }
 
+        //ENCODING
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // FIRST LINE FORMAT IS (ImageLocationInComputer , Number of cubicles, number of resources
@@ -577,7 +697,7 @@ namespace NavitasProject
                 {
                     cubicleTag = -1;
                 }
-
+                
                 storeCsv = storeCsv + i + "," + cubicleTag + ",";
                 storeCsv = storeCsv + resPic[i].ResNo+","+resPic[i].ResState+","+resPic[i].AssCubNo+","+ resPic[i].AssEmpNo+","+resPic[i].OtherInfo+","+resPic[i].ResType+","+resPic[i].DateOfIssue;
                 storeCsv = storeCsv + Environment.NewLine;
